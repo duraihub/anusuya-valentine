@@ -1,107 +1,86 @@
+
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anusuya 💖</title>
+
     <style>
         body {
             margin: 0;
             padding: 0;
-            text-align: center;
             font-family: 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
-            overflow: hidden;
+            text-align: center;
             color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
         }
 
         h1 {
-            margin-top: 120px;
-            font-size: 42px;
-        }
-
-        h2 {
             font-size: 28px;
         }
 
         button {
-            padding: 12px 28px;
-            font-size: 18px;
+            padding: 12px 24px;
+            font-size: 16px;
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            position: absolute;
-            transition: 0.3s;
+            margin: 10px;
         }
 
         #yesBtn {
             background-color: #28a745;
-            left: 40%;
-            top: 55%;
         }
 
         #noBtn {
             background-color: #dc3545;
-            left: 55%;
-            top: 55%;
-        }
-
-        #message {
-            margin-top: 320px;
-            font-size: 26px;
-            font-weight: bold;
-        }
-
-        .heart {
             position: absolute;
-            color: pink;
-            animation: float 5s linear infinite;
         }
 
-        @keyframes float {
-            from { transform: translateY(100vh); }
-            to { transform: translateY(-10vh); }
+        #finalMessage {
+            font-size: 24px;
+            font-weight: bold;
+            display: none;
         }
     </style>
 </head>
+
 <body>
 
-    <h1>Anusuya 💕</h1>
-    <h2>Will you be my Valentine? 💖</h2>
-
+<div class="container" id="questionBox">
+    <h1>Anusuya 💕<br>Will you be my Valentine?</h1>
     <button id="yesBtn" onclick="showLove()">Yes ❤️</button>
-    <button id="noBtn" onmouseover="moveButton()">No 😜</button>
+    <button id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton()">No 😜</button>
+</div>
 
-    <div id="message"></div>
+<div id="finalMessage">
+    Anusuya 😍 You just made Durai the happiest person alive! 💖💍
+</div>
 
-    <script>
-        function showLove() {
-            document.getElementById("message").innerHTML =
-                "Anusuya 😍 You just made Durai the happiest person alive! 💕💍";
-        }
+<script>
+    function showLove() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("finalMessage").style.display = "block";
+    }
 
-        function moveButton() {
-            var button = document.getElementById("noBtn");
-            var x = Math.random() * (window.innerWidth - 100);
-            var y = Math.random() * (window.innerHeight - 50);
-            button.style.left = x + "px";
-            button.style.top = y + "px";
-        }
-
-        // Floating hearts
-        setInterval(() => {
-            const heart = document.createElement("div");
-            heart.className = "heart";
-            heart.innerHTML = "💖";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.fontSize = (20 + Math.random() * 20) + "px";
-            document.body.appendChild(heart);
-
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
-        }, 500);
-    </script>
+    function moveButton() {
+        var button = document.getElementById("noBtn");
+        var x = Math.random() * (window.innerWidth - 100);
+        var y = Math.random() * (window.innerHeight - 50);
+        button.style.left = x + "px";
+        button.style.top = y + "px";
+    }
+</script>
 
 </body>
 </html>
-
