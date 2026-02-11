@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>For My Laddu 💖</title>
+    <title>Durai 💖 Anusuya</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
@@ -27,9 +27,22 @@
 
         h2 {
             color: white;
-            font-size: 26px;
-            margin-bottom: 20px;
-            transition: 0.3s;
+            font-size: 24px;
+            margin-bottom: 15px;
+            transition: 0.4s;
+        }
+
+        .loveText {
+            font-size: 22px;
+            color: white;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: 0.6s ease;
+        }
+
+        .showLove {
+            opacity: 1;
+            transform: scale(1);
         }
 
         button {
@@ -56,12 +69,25 @@
             position: absolute;
         }
 
-        img {
-            width: 140px;
-            margin-bottom: 15px;
+        .image-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
         }
 
-        /* Heart Animation */
+        .image-wrapper img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: opacity 0.6s ease;
+        }
+
+        #lastImg {
+            opacity: 0;
+        }
+
         .heart {
             position: fixed;
             font-size: 24px;
@@ -84,17 +110,22 @@
 
 <body>
 
-<audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-
 <div class="container" id="container">
-    <img src="First-image.gif" alt="Cute gif">
 
-    <h2 id="question">Hey laddu 🍬 will you be my Valentine? 💕</h2>
+    <div class="image-wrapper">
+        <img id="firstImg" src="First-image.gif" alt="First gif">
+        <img id="lastImg" src="Last-image.gif" alt="Last gif">
+    </div>
+
+    <h2 id="question">Hey baby 🍬 will you be my Valentine? 💕</h2>
+
+    <div id="loveMessage" class="loveText">
+        Durai ❤️ Anusuya
+    </div>
 
     <button id="yesBtn" onclick="sayYes()">Yes 💖</button>
     <button id="noBtn">No 😏</button>
 
-    <img src="Last-image.gif" alt="Cute gif">
 </div>
 
 <canvas id="confetti"></canvas>
@@ -105,7 +136,6 @@
 
     function moveButton() {
         const rect = container.getBoundingClientRect();
-
         const maxX = rect.width - noBtn.offsetWidth;
         const maxY = rect.height - noBtn.offsetHeight;
 
@@ -129,12 +159,19 @@
         document.getElementById("question").innerHTML =
         "Baby 💖 I can’t wait to create beautiful memories with you 🥰✨";
 
-        document.getElementById("bgMusic").play();
+        document.getElementById("firstImg").style.opacity = "0";
+        document.getElementById("lastImg").style.opacity = "1";
+
+        document.getElementById("loveMessage").classList.add("showLove");
+
+        noBtn.disabled = true;
+        noBtn.style.opacity = "0.5";
+        noBtn.style.cursor = "not-allowed";
+
         createHearts();
         startConfetti();
     }
 
-    /* Floating Hearts */
     function createHearts() {
         for (let i = 0; i < 20; i++) {
             const heart = document.createElement("div");
@@ -149,7 +186,6 @@
         }
     }
 
-    /* Confetti */
     const canvas = document.getElementById("confetti");
     const ctx = canvas.getContext("2d");
 
@@ -159,7 +195,7 @@
     function startConfetti() {
         let pieces = [];
 
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 80; i++) {
             pieces.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
