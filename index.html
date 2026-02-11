@@ -2,103 +2,188 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Durai 💖 Anusuya</title>
+    <title>For My Laddu 💖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    overflow: hidden;
-}
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
 
-.container {
-    width: 90%;
-    max-width: 400px;
-    position: relative;
-}
+        .container {
+            text-align: center;
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+        }
 
-img {
-    width: 180px;
-    max-width: 80%;
-    margin-bottom: 20px;
-}
+        h2 {
+            color: white;
+            font-size: 26px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
 
-h2 {
-    font-weight: normal;
-    margin-bottom: 20px;
-}
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 10px;
+        }
 
-button {
-    padding: 10px 20px;
-    border: none;
-    font-size: 14px;
-    cursor: pointer;
-    margin: 8px;
-    border-radius: 5px;
-}
+        #yesBtn {
+            background-color: #ff1744;
+            color: white;
+        }
 
-#yesBtn {
-    background-color: #4CAF50;
-    color: white;
-}
+        #yesBtn:hover {
+            transform: scale(1.1);
+        }
 
-#noBtn {
-    background-color: #d9534f;
-    color: white;
-    position: relative;
-}
-</style>
+        #noBtn {
+            background-color: white;
+            color: #ff1744;
+            position: absolute;
+        }
+
+        img {
+            width: 140px;
+            margin-bottom: 15px;
+        }
+
+        /* Heart Animation */
+        .heart {
+            position: fixed;
+            font-size: 24px;
+            animation: floatUp 2s linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-200px); opacity: 0; }
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- FIRST PAGE -->
-<div class="container" id="questionBox">
+<audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
-    <img src="First-image.gif" alt="First Image">
+<div class="container" id="container">
+    <img src="First-image.gif" alt="Cute gif">
 
-    <h2>Hey baby 💕 will you be my Valentine?</h2>
+    <h2 id="question">Hey laddu 🍬 will you be my Valentine? 💕</h2>
 
-    <button id="yesBtn" onclick="showLove()">Yes</button>
-    <button id="noBtn" onclick="moveButton()">No</button>
+    <button id="yesBtn" onclick="sayYes()">Yes 💖</button>
+    <button id="noBtn">No 😏</button>
 
+    <img src="Last-image.gif" alt="Cute gif">
 </div>
 
-<!-- FINAL PAGE -->
-<div class="container" id="finalBox" style="display:none;">
-
-    <img src="Last-image.gif" alt="Last Image">
-
-    <h2>Baby 💖 I can’t wait to create beautiful memories with you 🥰✨</h2>
-
-</div>
+<canvas id="confetti"></canvas>
 
 <script>
-function showLove() {
-    document.getElementById("questionBox").style.display = "none";
-    document.getElementById("finalBox").style.display = "block";
-}
+    const noBtn = document.getElementById("noBtn");
+    const container = document.getElementById("container");
 
-function moveButton() {
-    const btn = document.getElementById("noBtn");
+    function moveButton() {
+        const rect = container.getBoundingClientRect();
 
-    const maxX = window.innerWidth - btn.offsetWidth - 20;
-    const maxY = window.innerHeight - btn.offsetHeight - 20;
+        const maxX = rect.width - noBtn.offsetWidth;
+        const maxY = rect.height - noBtn.offsetHeight;
 
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
+        noBtn.style.left = Math.random() * maxX + "px";
+        noBtn.style.top = Math.random() * maxY + "px";
+    }
 
-    btn.style.position = "absolute";
-    btn.style.left = randomX + "px";
-    btn.style.top = randomY + "px";
-}
+    document.addEventListener("mousemove", function(e) {
+        const rect = noBtn.getBoundingClientRect();
+        const distance = Math.hypot(
+            e.clientX - (rect.left + rect.width / 2),
+            e.clientY - (rect.top + rect.height / 2)
+        );
+
+        if (distance < 100) moveButton();
+    });
+
+    noBtn.addEventListener("touchstart", moveButton);
+
+    function sayYes() {
+        document.getElementById("question").innerHTML =
+        "Baby 💖 I can’t wait to create beautiful memories with you 🥰✨";
+
+        document.getElementById("bgMusic").play();
+        createHearts();
+        startConfetti();
+    }
+
+    /* Floating Hearts */
+    function createHearts() {
+        for (let i = 0; i < 20; i++) {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "💖";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = window.innerHeight + "px";
+            heart.style.fontSize = (20 + Math.random() * 20) + "px";
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 2000);
+        }
+    }
+
+    /* Confetti */
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function startConfetti() {
+        let pieces = [];
+
+        for (let i = 0; i < 100; i++) {
+            pieces.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 8 + 4,
+                speed: Math.random() * 3 + 2
+            });
+        }
+
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            pieces.forEach(p => {
+                ctx.fillStyle = "hsl(" + Math.random() * 360 + ", 100%, 70%)";
+                ctx.fillRect(p.x, p.y, p.size, p.size);
+                p.y += p.speed;
+
+                if (p.y > canvas.height) p.y = 0;
+            });
+
+            requestAnimationFrame(update);
+        }
+
+        update();
+    }
 </script>
 
 </body>
