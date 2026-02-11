@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Baby 💖</title>
+<title>Durai 💖 Anusuya</title>
 
 <style>
 body {
@@ -15,11 +15,13 @@ body {
     align-items: center;
     height: 100vh;
     text-align: center;
+    overflow: hidden;
 }
 
 .container {
     width: 90%;
     max-width: 400px;
+    position: relative;
 }
 
 img {
@@ -65,7 +67,7 @@ button {
     <h2>Hey baby 💕 will you be my Valentine?</h2>
 
     <button id="yesBtn" onclick="showLove()">Yes</button>
-    <button id="noBtn" onclick="moveButton()">Are you sure?</button>
+    <button id="noBtn" onclick="moveButton()">No</button>
 
 </div>
 
@@ -86,9 +88,16 @@ function showLove() {
 
 function moveButton() {
     const btn = document.getElementById("noBtn");
+
+    const maxX = window.innerWidth - btn.offsetWidth - 20;
+    const maxY = window.innerHeight - btn.offsetHeight - 20;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
     btn.style.position = "absolute";
-    btn.style.top = Math.random() * window.innerHeight + "px";
-    btn.style.left = Math.random() * window.innerWidth + "px";
+    btn.style.left = randomX + "px";
+    btn.style.top = randomY + "px";
 }
 </script>
 
