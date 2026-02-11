@@ -25,8 +25,14 @@
             max-width: 400px;
         }
 
+        .gift {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+
         h1 {
-            font-size: 28px;
+            font-size: 26px;
+            margin-bottom: 20px;
         }
 
         button {
@@ -58,13 +64,18 @@
 <body>
 
 <div class="container" id="questionBox">
+
+    <!-- Gift Image -->
+    <img src="https://cdn-icons-png.flaticon.com/512/869/869636.png" class="gift" alt="Gift">
+
     <h1>Anusuya 💕<br>Will you be my Valentine?</h1>
+
     <button id="yesBtn" onclick="showLove()">Yes ❤️</button>
     <button id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton()">No 😜</button>
 </div>
 
 <div id="finalMessage">
-    Anusuya 😍 You just made Durai the happiest person alive! 💖💍
+    🎉 Anusuya 😍 You just made Durai the happiest person alive! 💖💍
 </div>
 
 <script>
